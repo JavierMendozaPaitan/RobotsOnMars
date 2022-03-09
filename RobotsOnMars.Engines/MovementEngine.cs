@@ -22,7 +22,14 @@ namespace RobotsOnMars.Engines
             {                
                 position.Orientation = OrientationActions.GetNewOrientation(position.Orientation, item);
                 position.Location = TranslationActions.GetNewLocation(position.Location, position.Orientation, item);
+                position = TranslationActions.GetValidatedPosition(position, maxExtension);
+                if (position.IsLost)
+                {
+                    break;
+                }
             }
+
+            return position;
         }
     }
 }

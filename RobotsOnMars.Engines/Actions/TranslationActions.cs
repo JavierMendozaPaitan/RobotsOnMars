@@ -38,9 +38,44 @@ namespace RobotsOnMars.Engines.Actions
             return newLocation;
         }
 
-        public static CoordinatePoint GetLostLocation(CoordinatePoint location, CoordinatePoint maxExtension)
+        public static Position GetValidatedPosition(Position position, CoordinatePoint maxExtension)
         {
+            var checkPosition = new Position
+            {
+                Location = position.Location,
+                Orientation = position.Orientation
+            };
+            if(checkPosition.Location.X > maxExtension.X || checkPosition.Location.Y > maxExtension.Y)
+            {
+                checkPosition.Location = GetLostLocation(checkPosition.Location, maxExtension);
+                checkPosition.IsLost = true;
+            }
 
+            return checkPosition;
         }
+        private static CoordinatePoint GetLostLocation(CoordinatePoint location, CoordinatePoint maxExtension)
+        {
+            var lostLocation = new CoordinatePoint
+            {
+                X = location.X,
+                Y = location.Y
+            };
+            if(lostLocation.X > maxExtension.X)
+            {
+                lostLocation.X -= 1;
+                if(lostLocation.Y > maxExtension.Y)
+                {
+                    lostLocation.Y -= 1;
+                }
+            }
+            else if(lostLocation.Y > maxExtension.Y)
+            {
+                lostLocation.Y -= 1;
+            }
+
+            return lostLocation;
+        }
+
+
     }
 }
