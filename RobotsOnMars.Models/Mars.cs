@@ -9,5 +9,6 @@ namespace RobotsOnMars.Models
     public class Mars
     {
         public CoordinatePoint MaxExtension { get; set; }
+        public List<Robot> RobotsOnMars { get; set; }
     }
 }

@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RobotsOnMars.Abstractions\RobotsOnMars.Abstractions.csproj" />
     <ProjectReference Include="..\RobotsOnMars.Models\RobotsOnMars.Models.csproj" />
   </ItemGroup>
 

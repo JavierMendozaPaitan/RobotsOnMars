@@ -8,12 +8,10 @@ namespace RobotsOnMars.Models
 {
     public class Robot
     {
-        public CoordinatePoint InitialLocation { get; set; }
-        public CoordinatePoint CurrentLocation { get; set; }
+        public Position InitialPosition { get; set; }
+        public Position CurrentPosition { get; set; }
         public CoordinatePoint CautionLocation { get; set; }
-        public bool HasDropDown { get; set; }
-        public Orientation InitialOrientation { get; set; }
-        public Orientation CurrentOrientation { get; set; }
+        public bool HasDropDown { get; set; } = false;
         public List<string> Instructions { get; set; }
     }
 }

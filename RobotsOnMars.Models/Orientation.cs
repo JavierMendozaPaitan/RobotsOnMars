@@ -8,6 +8,7 @@ namespace RobotsOnMars.Models
 {
     public enum Orientation
     {
+        Unknown,
         N,
         S,
         E,
