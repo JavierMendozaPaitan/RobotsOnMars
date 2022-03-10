@@ -45,7 +45,10 @@ namespace RobotsOnMars.Engines.Actions
                 Location = position.Location,
                 Orientation = position.Orientation
             };
-            if(checkPosition.Location.X > maxExtension.X || checkPosition.Location.Y > maxExtension.Y)
+            if(checkPosition.Location.X > maxExtension.X || 
+                checkPosition.Location.Y > maxExtension.Y ||
+                checkPosition.Location.X < 0 ||
+                checkPosition.Location.Y < 0)
             {
                 checkPosition.Location = GetLostLocation(checkPosition.Location, maxExtension);
                 checkPosition.IsLost = true;
@@ -71,6 +74,14 @@ namespace RobotsOnMars.Engines.Actions
             else if(lostLocation.Y > maxExtension.Y)
             {
                 lostLocation.Y -= 1;
+            }
+            else if(lostLocation.X < 0)
+            {
+                lostLocation.X += 1;
+            }
+            else if(lostLocation.Y < 0)
+            {
+                lostLocation.Y += 1;
             }
 
             return lostLocation;

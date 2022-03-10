@@ -4,8 +4,6 @@ using RobotsOnMars.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RobotsOnMars.Engines
 {
@@ -31,16 +29,12 @@ namespace RobotsOnMars.Engines
             try
             {
                 var validValues = false;
-                //Mars mars = null;
-                ////MarsEngine _marsEngine = new MarsEngine();
-                ////RobotsEngine _robotsEngine = new RobotsEngine();
-                //MarsEngine _marsEngine = provider.GetRequiredService<MarsEngine>();
-                //RobotsEngine _robotsEngine = provider.GetRequiredService<RobotsEngine>();
 
                 while (!validValues)
                 {
                     try
                     {
+                        _logger.LogInformation("Starting Service\n");
                         Console.WriteLine("Enter Mars Dimensions: ");
                         var marsInput = Console.ReadLine();
                         mars = _marsEngine.GenerateMars(marsInput);
