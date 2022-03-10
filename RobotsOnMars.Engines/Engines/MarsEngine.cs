@@ -11,9 +11,9 @@ namespace RobotsOnMars.Engines
     public class MarsEngine : IMarsEngine
     {
         private readonly IInputEngine _inputEngine;
-        public MarsEngine()
+        public MarsEngine(IInputEngine inputEngine)
         {
-            _inputEngine = new InputEngine();
+            _inputEngine = inputEngine;
         }
         public Mars GenerateMars(string input)
         {

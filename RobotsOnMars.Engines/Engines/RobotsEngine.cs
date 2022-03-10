@@ -12,10 +12,13 @@ namespace RobotsOnMars.Engines
     {
         private readonly IInputEngine _inputEngine;
         private readonly IMovementEngine _movementEngine;
-        public RobotsEngine()
+        public RobotsEngine(
+            IInputEngine inputEngine,
+            IMovementEngine movementEngine
+            )
         {
-            _inputEngine = new InputEngine();
-            _movementEngine = new MovementEngine();
+            _inputEngine = inputEngine;
+            _movementEngine = movementEngine;
         }
         public Robot GenerateRobot(string input)
         {
