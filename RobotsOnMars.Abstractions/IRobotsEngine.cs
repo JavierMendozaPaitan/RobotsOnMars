@@ -11,5 +11,7 @@ namespace RobotsOnMars.Abstractions
     {
         Robot GenerateRobot(string input);
         List<Robot> GenerateRobotsList(List<string> input);
+        void SetLastPosition(Robot robot, Mars mars);
+        string LastPositionInfoToPrint(Robot robot);
     }
 }

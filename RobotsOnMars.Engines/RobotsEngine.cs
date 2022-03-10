@@ -11,9 +11,11 @@ namespace RobotsOnMars.Engines
     public class RobotsEngine : IRobotsEngine
     {
         private readonly IInputEngine _inputEngine;
+        private readonly IMovementEngine _movementEngine;
         public RobotsEngine()
         {
             _inputEngine = new InputEngine();
+            _movementEngine = new MovementEngine();
         }
         public Robot GenerateRobot(string input)
         {
@@ -28,7 +30,12 @@ namespace RobotsOnMars.Engines
                 var robot = new Robot
                 {
                     InitialPosition = initialPosition,
-                    CurrentPosition = initialPosition,
+                    LastPosition = initialPosition,
+                    CautionLocation = new CoordinatePoint
+                    {
+                        X = 1000,
+                        Y = 1000
+                    },
                     Instructions = _inputEngine.GetInstructions(str[1])
                 };
 
@@ -52,6 +59,35 @@ namespace RobotsOnMars.Engines
                 }
 
                 return list;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public string LastPositionInfoToPrint(Robot robot)
+        {
+            var isLost = robot.HasDropDown ? "LOST" : string.Empty;
+            var info = $"{robot.LastPosition.Location.X} " +
+                $"{robot.LastPosition.Location.Y} " +
+                $"{robot.LastPosition.Orientation} " +
+                $"{isLost}";
+
+            return info;
+        }
+
+        public void SetLastPosition(Robot robot, Mars mars)
+        {
+            try
+            {
+                var cautionPoints = mars.RobotsOnMars.Select(x => x.CautionLocation).ToList();
+                robot.LastPosition = _movementEngine.GetLastPosition(robot.InitialPosition, cautionPoints, mars.MaxExtension, robot.Instructions);
+                if (robot.LastPosition.IsLost)
+                {
+                    robot.HasDropDown = true;
+                    robot.CautionLocation = robot.LastPosition.Location;
+                }
             }
             catch (Exception)
             {

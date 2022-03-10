@@ -9,6 +9,6 @@ namespace RobotsOnMars.Abstractions
 {
     public interface IMovementEngine
     {
-        Position GetLastPosition(Position initialPosition, CoordinatePoint maxExtension, List<string> instructions);
+        Position GetLastPosition(Position initialPosition, List<CoordinatePoint> cautionPoints, CoordinatePoint maxExtension, List<string> instructions);
     }
 }

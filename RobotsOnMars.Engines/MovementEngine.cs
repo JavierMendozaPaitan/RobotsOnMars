@@ -11,7 +11,7 @@ namespace RobotsOnMars.Engines
 {
     public class MovementEngine : IMovementEngine
     {
-        public Position GetLastPosition(Position initialPosition, CoordinatePoint maxExtension, List<string> instructions)
+        public Position GetLastPosition(Position initialPosition, List<CoordinatePoint> cautionPoints, CoordinatePoint maxExtension, List<string> instructions)
         {
             var position = new Position
             {
@@ -21,7 +21,12 @@ namespace RobotsOnMars.Engines
             foreach (var item in instructions)
             {                
                 position.Orientation = OrientationActions.GetNewOrientation(position.Orientation, item);
-                position.Location = TranslationActions.GetNewLocation(position.Location, position.Orientation, item);
+                var location = TranslationActions.GetNewLocation(position.Location, position.Orientation, item);
+                var isCautionPoint = IsCautionPoint(location, cautionPoints);
+                if (!isCautionPoint)
+                {
+                    position.Location = location;
+                }
                 position = TranslationActions.GetValidatedPosition(position, maxExtension);
                 if (position.IsLost)
                 {
@@ -30,6 +35,21 @@ namespace RobotsOnMars.Engines
             }
 
             return position;
+        }
+
+        private bool IsCautionPoint(CoordinatePoint location, List<CoordinatePoint> cautionPoints)
+        {
+            var isCautionPoint = false;
+            foreach (var item in cautionPoints)
+            {
+                if(location.X.Equals(item.X) && location.Y.Equals(item.Y))
+                {
+                    isCautionPoint = true;
+                    break;
+                }
+            }
+
+            return isCautionPoint;
         }
     }
 }

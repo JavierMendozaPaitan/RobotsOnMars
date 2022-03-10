@@ -12,7 +12,6 @@ namespace RobotsOnMars
         {
             var validValues = false;
             Mars mars = null;
-            List<Robot> robots = null;
             MarsEngine _marsEngine = new MarsEngine();
             RobotsEngine _robotsEngine = new RobotsEngine();
 
@@ -44,8 +43,8 @@ namespace RobotsOnMars
                         throw new InvalidOperationException();
                     }
                     Console.WriteLine("Generating robots...");
-                    robots = _robotsEngine.GenerateRobotsList(input);
-                    if (!robots.Any())
+                    mars.RobotsOnMars = _robotsEngine.GenerateRobotsList(input);
+                    if (!mars.RobotsOnMars.Any())
                     {
                         throw new InvalidOperationException();
                     }
@@ -57,10 +56,15 @@ namespace RobotsOnMars
                 }
             }
 
-            //Console.ReadLine();
+            Console.WriteLine("Setting Last Position with instructions...");
+            foreach (var robot in mars.RobotsOnMars)
+            {
+                _robotsEngine.SetLastPosition(robot, mars);
+                Console.WriteLine(_robotsEngine.LastPositionInfoToPrint(robot));
+            }
 
-
-
+            Console.WriteLine("Press Enter to finish...");
+            Console.ReadLine();
         }
     }
 }

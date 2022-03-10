@@ -22,7 +22,7 @@ namespace RobotsOnMars.Engines
                 var arr = input.ToCharArray();
                 foreach (var item in arr)
                 {
-                    list.Add(item.ToString());
+                    list.Add(item.ToString().ToUpper());
                 }
 
                 return list;
